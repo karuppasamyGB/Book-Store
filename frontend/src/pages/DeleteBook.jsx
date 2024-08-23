@@ -34,7 +34,7 @@ const DeleteBook = () => {
     };
     setLoading(true);
     axios
-      .delete(`http://localhost:5555/books/${id}`, data)
+      .delete(`https://book-server-malg.onrender.com/books/${id}`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book deleted successfully',{variant:'success'});
