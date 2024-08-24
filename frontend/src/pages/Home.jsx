@@ -281,6 +281,95 @@
 // export default Home;
 
 
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import Spinner from '../components/Spinner';
+// import { Link } from 'react-router-dom';
+// import { MdOutlineAddBox } from 'react-icons/md';
+// import BookCard from '../components/home/BookCard';
+// import BookTable from '../components/home/BookTable';
+// import bookBackground from '../assets/Book.jpg';
+
+// const Home = () => {
+//     const [books, setBooks] = useState([]);
+//     const [loading, setLoading] = useState(false);
+//     const [showType, setShowType] = useState('table');
+//     const [searchQuery, setSearchQuery] = useState('');  // Search query state
+
+//     useEffect(() => {
+//         setLoading(true);
+//         axios
+//             .get('https://book-server-malg.onrender.com/books')
+//             .then((response) => {
+//                 setBooks(response.data.data);
+//                 setLoading(false);
+//             })
+//             .catch((error) => {
+//                 console.log(error);
+//                 setLoading(false);
+//             });
+//     }, []);
+
+//     // Filtered books based on search criteria
+//     const filteredBooks = books.filter((book) => {
+//         return (
+//             book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+//             book.author.toLowerCase().includes(searchQuery.toLowerCase())
+//         );
+//     });
+
+//     return (
+//         <div 
+//             className='p-4'
+//             style={{
+//                 backgroundImage: `url(${bookBackground})`,
+//                 backgroundSize: 'cover',
+//                 backgroundRepeat: 'no-repeat',
+//                 backgroundPosition: 'center',
+//                 minHeight: '100vh'
+//             }}
+//         >
+//             <div className='flex flex-col items-end gap-y-4'>
+//                 {/* Search Input */}
+//                 <input 
+//                     type="text" 
+//                     placeholder="Search by title or author..." 
+//                     className='p-2 border border-gray-400 rounded-md'
+//                     value={searchQuery}
+//                     onChange={(e) => setSearchQuery(e.target.value)}
+//                 />
+//             </div>
+            
+//             <div className='flex justify-center items-center gap-x-4'>
+//                 <button className='bg-sky-300 hover:bg-white px-4 py-1 rounded-lg'
+//                     onClick={() => setShowType('table')}>
+//                     Table
+//                 </button>
+//                 <button className='bg-sky-300 hover:bg-white px-4 py-1 rounded-lg'
+//                     onClick={() => setShowType('card')}
+//                 >
+//                     Card
+//                 </button>
+//             </div>
+//             <div className='flex justify-between items-center'>
+//                 <h1 className='text-3xl my-8 text-white'>Books List</h1>
+//                 <Link to='/books/create'>
+//                     <MdOutlineAddBox className='text-white text-4xl' />
+//                 </Link>
+//             </div>
+//             {loading ? (
+//                 <Spinner />
+//             ) : showType === 'table' ? (
+//                 <BookTable books={filteredBooks} />
+//             ) : (
+//                 <BookCard books={filteredBooks} />
+//             )}
+//         </div>
+//     );
+// };
+
+// export default Home;
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
@@ -299,7 +388,7 @@ const Home = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('https://book-server-malg.onrender.com/books')
+            .get('http://localhost:5555/books')
             .then((response) => {
                 setBooks(response.data.data);
                 setLoading(false);
@@ -323,38 +412,42 @@ const Home = () => {
             className='p-4'
             style={{
                 backgroundImage: `url(${bookBackground})`,
-                backgroundSize: 'cover',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                minHeight: '100vh'
+                backgroundSize: 'cover', 
+                backgroundRepeat: 'no-repeat', 
+                backgroundPosition: 'center', 
+                minHeight: '100vh', 
+                width: '100%', 
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                padding: '1rem', // Reduced padding for mobile
             }}
         >
-            <div className='flex flex-col items-end gap-y-4'>
-                {/* Search Input */}
+            <div className='flex flex-col items-end gap-y-2'>
                 <input 
                     type="text" 
                     placeholder="Search by title or author..." 
-                    className='p-2 border border-gray-400 rounded-md'
+                    className='p-2 border border-gray-400 rounded-md w-full md:w-auto' // Full width on small screens
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                 />
             </div>
             
-            <div className='flex justify-center items-center gap-x-4'>
-                <button className='bg-sky-300 hover:bg-white px-4 py-1 rounded-lg'
+            <div className='flex justify-center items-center gap-x-2 my-4'>
+                <button className='bg-sky-300 hover:bg-white px-2 py-1 rounded-lg text-sm'
                     onClick={() => setShowType('table')}>
                     Table
                 </button>
-                <button className='bg-sky-300 hover:bg-white px-4 py-1 rounded-lg'
+                <button className='bg-sky-300 hover:bg-white px-2 py-1 rounded-lg text-sm'
                     onClick={() => setShowType('card')}
                 >
                     Card
                 </button>
             </div>
-            <div className='flex justify-between items-center'>
-                <h1 className='text-3xl my-8 text-white'>Books List</h1>
+            <div className='flex justify-between items-center my-4'>
+                <h1 className='text-2xl text-white'>Books List</h1>
                 <Link to='/books/create'>
-                    <MdOutlineAddBox className='text-white text-4xl' />
+                    <MdOutlineAddBox className='text-white text-3xl' />
                 </Link>
             </div>
             {loading ? (
@@ -369,3 +462,5 @@ const Home = () => {
 };
 
 export default Home;
+
+
